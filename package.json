@@ -2,9 +2,9 @@
   "name": "gridsome-googlesheet",
   "private": true,
   "scripts": {
-    "develop": "gridsome develop",
+    "develop": "NODE_OPTIONS=--openssl-legacy-provider gridsome develop",
     "explore": "gridsome explore",
-    "build": "gridsome build",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider gridsome build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -17,6 +17,10 @@
     "gridsome": "^0.7.0",
     "gridsome-source-google-sheets": "^0.4.1",
     "gridsome-source-google-sheets-v2": "^1.0.4",
+    "sharp": "0.25.4",
+    "vue": "^2.6.4",
+    "vue-server-renderer": "2.7.16",
+    "vue-template-compiler": "2.7.16",
     "vuetify": "^2.4.9"
   },
   "devDependencies": {
@@ -25,11 +29,12 @@
     "@vue/cli-plugin-eslint": "^4.5.13",
     "@vue/cli-service": "^4.5.13",
     "@vue/eslint-config-prettier": "^6.0.0",
-    "eslint": "^7.26.0",
+    "eslint": "^6.2.0",
     "eslint-plugin-gridsome": "^1.6.2",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.9.0",
     "prettier": "^2.3.0",
     "webpack-node-externals": "^2.5.2"
-  }
+  },
+  "packageManager": "yarn@4.9.1"
 }
