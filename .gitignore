@@ -8,3 +8,7 @@ dist
 /acmg.env
 /env.mine
 /gridsome-opac.code-workspace
+
+# Test results (generated files)
+link-test-results.json
+deployment-report.json

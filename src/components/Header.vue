@@ -7,7 +7,6 @@
       dark
     >
       <v-app-bar-nav-icon
-        class="d-flex d-sm-none"
         @click="toggle"
       ></v-app-bar-nav-icon>
       <v-btn text large href="/">
@@ -29,6 +28,8 @@
         <v-icon>mdi-search</v-icon>
         Search
       </v-btn> -->
+      <!-- Hide the regular toolbar items since we're using the drawer for all navigation -->
+      <!--
       <v-toolbar-items class="d-none d-sm-flex">
         <v-btn to="/" text>
           <v-icon>mdi-home</v-icon>
@@ -38,19 +39,19 @@
           <v-icon>mdi-information-outline</v-icon>
           About</v-btn
         >
-        <!-- <v-btn text to="/articles">Articles</v-btn> -->
         <v-btn to="/contact" text>
           <v-icon>mdi-contacts</v-icon>
           Contact
         </v-btn>
       </v-toolbar-items>
+      -->
     </v-toolbar>
 
     <v-navigation-drawer
       absolute
       v-model="collapse"
       :mini-variant.sync="mini"
-      class="d-flex d-sm-none dark"
+      dark
     >
       <v-list-item>
         <v-list-item-avatar>

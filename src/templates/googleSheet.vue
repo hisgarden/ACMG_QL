@@ -24,7 +24,9 @@
           <div><b>Location-TagNum - &nbsp;</b> {{$page.googleSheet.Location}}-{{$page.googleSheet.ID}}</div>
           <div><b>Photo Attribution - &nbsp;</b> {{$page.googleSheet.Attribution}}</div>
           <br>
-          <div><g-link :to="$page.googleSheet.Plant_Info_Link"> <b>Additional Plant Info</b></g-link></div>
+          <div v-if="$page.googleSheet.Plant_Info_Link && $page.googleSheet.Plant_Info_Link.trim() !== ''">
+            <g-link :to="$page.googleSheet.Plant_Info_Link"> <b>Additional Plant Info</b></g-link>
+          </div>
           <br>
           <div></div>
          <!--

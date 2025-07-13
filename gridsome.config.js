@@ -19,6 +19,28 @@ module.exports = {
               {
                 sheetName: 'WebSiteList', // Example: "Sheet1" "QL_Plants"
                 collectionName: 'googleSheet', // Example: "Projects" (Must be unique)
+                nodeProcessor: (node) => {
+                  // Get fields we can use for identification
+                  const location = node.Location || '';
+                  const originalId = node.ID || '';
+                  const commonName = node.Common_Name || '';
+                  const scientificName = node.Scientific_Name || '';
+                  
+                  // Create a time-based random component to ensure uniqueness
+                  const timestamp = Date.now().toString();
+                  const random = Math.floor(Math.random() * 100000).toString();
+                  
+                  // Create unique ID by combining multiple sources of uniqueness
+                  // This replaces the original ID completely to avoid duplication issues
+                  node.id = `plant-${location.replace(/\s+/g, '-')}-${originalId}-${timestamp}-${random}`
+                    .toLowerCase()
+                    .replace(/[^a-z0-9-]/g, '-');
+                  
+                  // Store the original ID for reference
+                  node.originalID = originalId;
+                  
+                  return node;
+                },
               },
               //{
               //  sheetName: 'Natives', // Example: "Sheet2"
@@ -63,7 +85,7 @@ module.exports = {
   templates: {
     googleSheet: [
       {
-        path: '/:ID',
+        path: '/plant/:id',
         component: './src/templates/googleSheet.vue',
       },
     ],

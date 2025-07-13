@@ -1,13 +1,9 @@
 <template>
   <Layout>
-    <h1>Sensory Garden</h1>
+    <H1>Sensory Plants Garden</H1>
     <div>
-      <p>
-      Stroll past the Sensory Garden and enjoy a kaleidoscope of colors and textures. Breathe in the sweet fragrance of flowers and herbs. This garden maximizes the sensory impact that a garden can offer. Rosemary is a fragrant evergreen herb native to the Mediterranean.
-      </p> 
-    </div>
-    <br>
-    <br>  
+      The Sensory Garden engages all five senses with plants that offer unique textures, fragrances, sounds, tastes, and visual appeal. This garden is designed to provide a multi-sensory experience, featuring plants with aromatic leaves, interesting textures, colorful flowers, and edible parts that create an interactive and therapeutic garden space.
+    </div> 
     <AllPlants />
   </Layout>
 </template>
@@ -18,24 +14,25 @@ query {
   allGoogleSheet (filter: { Location: { in: ["Sensory"] }}){
     edges {
       node {
-            ID
-            Scientific_Name
-            Full_Name
-            Cultivar
-            Common_Name
-            Description
-            Size__height_
-            Size__width_
-            Bloom_Season
-            Pruning_Needs
-            Water_Needs
-            Exposure
-            Type 
-            Location  
-
-            Img_URL
-            Attribution
-            Links
+        id
+        ID
+        Scientific_Name
+        Common_Name
+        Full_Name
+        Cultivar
+        Description
+        Size__height_
+        Size__width_
+        Bloom_Season
+        Pruning_Needs
+        Water_Needs
+        Exposure
+        Pruning_Needs
+        Location
+        Img_URL
+        Attribution
+        Links
+        Type
       }
     }
   }
@@ -43,18 +40,14 @@ query {
 </page-query>
 
 <script>
-import Plant from '@/components/Plant.vue'
 import AllPlants from '@/components/AllPlants.vue'
-//import Card from "@/components/Card.vue"
 
 export default {
   metaInfo: {
-    title: 'Sensory Garden',
+    title: 'Sensory Plants - Quarry Lake Demonstration Garden',
   },
   components: {
     AllPlants,
-    Plant,
-    //Card
   },
 }
 </script>

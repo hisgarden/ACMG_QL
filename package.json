@@ -5,7 +5,11 @@
     "develop": "NODE_OPTIONS=--openssl-legacy-provider gridsome develop",
     "explore": "gridsome explore",
     "build": "NODE_OPTIONS=--openssl-legacy-provider gridsome build",
-    "lint": "vue-cli-service lint"
+    "build:test": "node build-and-test.js",
+    "lint": "vue-cli-service lint",
+    "test:links": "node test-links.js",
+    "test:links:ci": "node test-links.js && echo 'All links passed!'",
+    "prebuild": "yarn test:links"
   },
   "dependencies": {
     "@capsia/gridsome-plugin-local-image": "^1.1.1",
@@ -33,6 +37,7 @@
     "eslint-plugin-gridsome": "^1.6.2",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.9.0",
+    "node-fetch": "^3.3.2",
     "prettier": "^2.3.0",
     "webpack-node-externals": "^2.5.2"
   },

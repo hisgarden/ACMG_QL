@@ -5,11 +5,11 @@
         <v-col sm="12">
           <div
             v-for="page in $page.allGoogleSheet.edges"
-            :key="page.node.ID"
+            :key="page.node.id"
           >
             <v-card max-width="400" class="mx-auto" elevation="4">
               <v-avatar class="ma-3" size="194" tile>
-                <g-link :to="page.node.ID">
+                <g-link :to="`/plant/${page.node.id}`">
                   <v-img
                     contain
                     max-height="194"
@@ -22,7 +22,7 @@
               <v-card-title>{{ page.node.Common_Name }}</v-card-title>
               <v-card-subtitle>
                 <div class="container-name"> 
-                  <g-link :to="page.node.ID">
+                  <g-link :to="`/plant/${page.node.id}`">
                     <div :class="[italic]">{{ page.node.Full_Name }}</div>
                     <div class="div2"> {{ page.node.Cultivar }}</div>
                   </g-link>
