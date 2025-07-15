@@ -1,6 +1,7 @@
 <template>
   <Layout>
-    <div v-for= "page in $page.allGoogleSheet.edges" :key= "page.node.id">
+    <div v-if="$page.allGoogleSheet && $page.allGoogleSheet.edges && $page.allGoogleSheet.edges.length > 0">
+      <div v-for= "page in $page.allGoogleSheet.edges" :key= "page.node.id">
      <v-card max-width="400" class="mx-auto" elevation="4">
                 <v-avatar class="ma-3" size="194" tile>
                   <g-link :to="`/plant/${page.node.id}`">
@@ -25,6 +26,17 @@
     </v-card>
     <br> 
     <br>
+    </div>
+    </div>
+    <div v-else>
+      <v-alert type="info" class="ma-4">
+        <div class="text-center">
+          <h3>Welcome to Quarry Lakes Demonstration Garden</h3>
+          <p>This site showcases plants from the Quarry Lakes Demonstration Garden in Fremont.</p>
+          <p>To view plant information, please set up your Google Sheets API credentials in the .env file.</p>
+          <p>For setup instructions, see the README.md file.</p>
+        </div>
+      </v-alert>
     </div>
   </Layout>
 </template>

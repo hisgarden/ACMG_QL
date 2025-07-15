@@ -4,7 +4,7 @@
   "scripts": {
     "develop": "NODE_OPTIONS=--openssl-legacy-provider gridsome develop",
     "explore": "gridsome explore",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider gridsome build",
+    "build": "gridsome build",
     "build:test": "node build-and-test.js",
     "lint": "vue-cli-service lint",
     "test:links": "node test-links.js",
@@ -21,7 +21,7 @@
     "gridsome": "^0.7.0",
     "gridsome-source-google-sheets": "^0.4.1",
     "gridsome-source-google-sheets-v2": "^1.0.4",
-    "sharp": "0.25.4",
+    "sharp": "^0.33.5",
     "vue": "^2.6.4",
     "vue-server-renderer": "2.7.16",
     "vue-template-compiler": "2.7.16",

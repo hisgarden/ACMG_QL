@@ -3,10 +3,11 @@
     <v-container>
       <v-row dense>
         <v-col sm="12">
-          <div
-            v-for="page in $page.allGoogleSheet.edges"
-            :key="page.node.id"
-          >
+          <div v-if="$page.allGoogleSheet && $page.allGoogleSheet.edges && $page.allGoogleSheet.edges.length > 0">
+            <div
+              v-for="page in $page.allGoogleSheet.edges"
+              :key="page.node.id"
+            >
             <v-card max-width="400" class="mx-auto" elevation="4">
               <v-avatar class="ma-3" size="194" tile>
                 <g-link :to="`/plant/${page.node.id}`">
@@ -30,6 +31,16 @@
               </v-card-subtitle>
             </v-card>
             <br>
+          </div>
+          </div>
+          <div v-else>
+            <v-alert type="info" class="ma-4">
+              <div class="text-center">
+                <h3>No plant data available</h3>
+                <p>This section requires Google Sheets data to be configured.</p>
+                <p>Please set up your Google Sheets API credentials in the .env file to view plant information.</p>
+              </div>
+            </v-alert>
           </div>
         </v-col>
       </v-row>

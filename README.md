@@ -2,6 +2,59 @@
 
 <hr />
 
+# Build Instructions for macOS (2025)
+
+## Prerequisites
+- macOS (tested on Sonoma and later)
+- Node.js 18.x or later (recommended)
+- Yarn 4.x (this project uses Yarn 4.9.1)
+- Xcode Command Line Tools
+- Homebrew
+
+## 1. Install Yarn 4.x (if not already installed)
+```
+npm install -g yarn@4
+```
+
+## 2. Install system dependencies
+```
+xcode-select --install
+brew install vips
+```
+
+## 3. Install project dependencies
+```
+yarn install
+```
+
+## 4. Build the project
+```
+yarn build
+```
+
+The build should complete successfully and generate the static site in the `dist/` directory.
+
+If you encounter errors related to native modules (like `sharp`), ensure you have the system dependencies above installed, and try a clean install:
+```
+rm -rf .yarn node_modules yarn.lock .pnp.cjs
+yarn install
+```
+
+## Google Sheets Integration (Optional)
+
+This project is configured to pull plant data from Google Sheets. To enable this feature:
+
+1. Create a Google Cloud Project and enable the Google Sheets API
+2. Create an API key with access to Google Sheets
+3. Create or use an existing Google Sheet with plant data
+4. Update the `.env` file with your credentials:
+   ```
+   GOOGLE_API_KEY=your_actual_google_api_key
+   GOOGLE_SHEET_ID=your_actual_google_sheet_id
+   ```
+
+The build will work without Google Sheets data, but plant pages will show a placeholder message.
+
 # About the starter
 
 
