@@ -75,7 +75,8 @@
           v-for="item in items"
           :key="item.title"
           link
-          :href="item.path"
+          :to="item.path"
+          @click="collapse = false"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -107,11 +108,10 @@ export default {
         { title: 'Home', icon: 'mdi-home', path: '/' },
         { title: 'About', icon: 'mdi-information-outline', path: '/about' },
         { title: 'Outstanding Plants of Alameda County', icon: 'mdi-flower-outline', path: '/opac' },
-        { title: 'Native Plants', icon: 'mdi-flower-outline', path: '/Natives' },
-        { title: 'Mediterranean Plants', icon: 'mdi-flower-outline', path: '/Mediterranean' },
-        { title: 'Grasses Plants', icon: 'mdi-flower-outline', path: '/Grasses' },
-        { title: 'Sensory Plants', icon: 'mdi-flower-outline', path: '/Sensory' },
-        // { title: "Articles", icon: "fa-newspaper", path: "/articles" },
+        { title: 'Native Plants', icon: 'mdi-flower-outline', path: '/natives' },
+        { title: 'Mediterranean Plants', icon: 'mdi-flower-outline', path: '/mediterranean' },
+        { title: 'Grasses Plants', icon: 'mdi-flower-outline', path: '/grasses' },
+        { title: 'Sensory Plants', icon: 'mdi-flower-outline', path: '/sensory' },
         { title: 'Contact', icon: 'mdi-contacts', path: '/contact' },
       ],
       mini: false,

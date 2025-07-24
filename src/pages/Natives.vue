@@ -1,5 +1,6 @@
 <template>
   <Layout>
+    <Breadcrumbs />
     <H1>Native Plants Garden</H1>
     <div>
       Native plants are those that occur naturally in a region and have evolved to thrive in local conditions. Our Native Plants Garden showcases beautiful California native species that provide habitat for local wildlife while requiring minimal water and maintenance once established.
@@ -41,6 +42,7 @@ query {
 
 <script>
 import AllPlants from '@/components/AllPlants.vue'
+import Breadcrumbs from '@/components/Breadcrumbs.vue'
 
 export default {
   metaInfo: {
@@ -48,6 +50,7 @@ export default {
   },
   components: {
     AllPlants,
+    Breadcrumbs,
   },
 }
 </script>

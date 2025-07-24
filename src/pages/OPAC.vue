@@ -1,5 +1,6 @@
 <template>
   <Layout>
+    <Breadcrumbs />
     <H1>Outstanding Plants of Alameda County</H1>
     <div>
       The Outstanding Plants of Alameda County (OPAC) program recognizes exceptional plants that thrive in our local climate and conditions. These plants have been selected for their beauty, adaptability, and performance in Alameda County gardens.
@@ -11,7 +12,7 @@
 <!-- Always put page-query between <template> and <script> -->
 <page-query>
 query {
-  allGoogleSheet (filter: { Type: { in: ["OPAC"] }}){
+  allGoogleSheet (filter: { Location: { in: ["OPAC"] }}){
     edges {
       node {
         id
@@ -41,6 +42,7 @@ query {
 
 <script>
 import AllPlants from '@/components/AllPlants.vue'
+import Breadcrumbs from '@/components/Breadcrumbs.vue'
 
 export default {
   metaInfo: {
@@ -48,6 +50,7 @@ export default {
   },
   components: {
     AllPlants,
+    Breadcrumbs,
   },
 }
 </script>
