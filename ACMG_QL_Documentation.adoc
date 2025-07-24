@@ -1,0 +1,781 @@
+= ACMG Quarry Lakes Demonstration Garden
+UC Davis Arboretum and Community Gardens
+:doctype: book
+:toc: left
+:toclevels: 3
+:sectanchors:
+:sectlinks:
+:sectnums:
+:source-highlighter: highlight.js
+:icons: font
+:imagesdir: assets
+:homepage: https://github.com/hisgarden/ACMG_QL
+
+[.lead]
+A comprehensive plant catalog website showcasing the botanical diversity of UC Davis's Quarry Lakes Demonstration Garden in Fremont, California.
+
+== Overview
+
+The ACMG Quarry Lakes Demonstration Garden project is a modern web application built to showcase and catalog plants from the UC Davis Arboretum and Community Gardens' demonstration site at Quarry Lakes Regional Recreation Area. The site serves as both an educational resource and a practical plant identification tool for visitors, gardeners, and botanical enthusiasts.
+
+=== Mission Statement
+
+To provide an accessible, searchable digital catalog of native and adapted plants thriving in the San Francisco Bay Area climate, promoting sustainable gardening practices and environmental stewardship.
+
+=== Key Features
+
+* **Interactive Plant Catalog** - Searchable database with 200+ plant species
+* **Garden Categories** - Native, Mediterranean, Grasses, Sensory, and OPAC plants
+* **Mobile-Responsive Design** - Optimized for all devices
+* **Real-time Search & Filtering** - Find plants by name, characteristics, and requirements
+* **Dynamic Data Integration** - Live updates from Google Sheets
+* **Comprehensive Testing** - Automated link validation and build verification
+
+== Technical Architecture
+
+=== Technology Stack
+
+[cols="2,3,2"]
+|===
+|Component |Technology |Version
+
+|Frontend Framework
+|Vue.js with Gridsome
+|Vue 2.6.4, Gridsome 0.7.0
+
+|UI Framework
+|Vuetify
+|2.4.9
+
+|Build System
+|Yarn
+|4.9.1
+
+|Data Source
+|Google Sheets API
+|v4
+
+|Deployment
+|Static Site Generation
+|JAMstack
+
+|Styling
+|Material Design
+|Via Vuetify
+
+|Package Manager
+|Yarn
+|4.9.1
+|===
+
+=== System Requirements
+
+==== Development Environment
+
+* **Operating System**: macOS, Linux, or Windows
+* **Node.js**: 18.x or later (recommended)
+* **Yarn**: 4.x (this project uses Yarn 4.9.1)
+* **Additional macOS Requirements**:
+  - Xcode Command Line Tools
+  - Homebrew
+  - `vips` library for image processing
+
+==== Installation Prerequisites
+
+[source,bash]
+----
+# Install Yarn 4.x globally
+npm install -g yarn@4
+
+# Install system dependencies (macOS)
+xcode-select --install
+brew install vips
+
+# Install project dependencies
+yarn install
+----
+
+== Project Structure
+
+=== Directory Layout
+
+[source]
+----
+ACMG_QL/
+├── src/                          # Source code
+│   ├── components/               # Vue components
+│   │   ├── AllPlants.vue        # Main plant catalog component
+│   │   ├── Header.vue           # Navigation header
+│   │   ├── Breadcrumbs.vue      # Navigation breadcrumbs
+│   │   ├── Hero.vue             # Homepage hero section
+│   │   ├── Footer.vue           # Site footer
+│   │   └── ...                  # Additional components
+│   ├── pages/                   # Route pages
+│   │   ├── Index.vue            # Homepage
+│   │   ├── Natives.vue          # Native plants catalog
+│   │   ├── Mediterranean.vue     # Mediterranean plants
+│   │   ├── Grasses.vue          # Grasses catalog
+│   │   ├── Sensory.vue          # Sensory garden plants
+│   │   ├── OPAC.vue             # Outstanding Plants of Alameda County
+│   │   ├── About.vue            # About page
+│   │   └── Contact.vue          # Contact information
+│   ├── templates/               # Dynamic page templates
+│   │   ├── googleSheet.vue      # Individual plant detail pages
+│   │   └── ...
+│   ├── layouts/                 # Page layouts
+│   │   └── Default.vue          # Main layout template
+│   ├── assets/                  # Static assets
+│   │   ├── img/                 # Plant photographs (200+)
+│   │   └── UC_ACMG_logo.png     # Branding assets
+│   └── main.js                  # Application entry point
+├── static/                      # Static files
+├── articles/                    # Blog posts (Markdown)
+├── dist/                        # Build output
+├── gridsome.config.js           # Main configuration
+├── package.json                 # Dependencies and scripts
+├── README.md                    # Build instructions
+├── TESTING.md                   # Testing documentation
+└── .env                         # Environment variables
+----
+
+=== Core Components
+
+==== AllPlants.vue
+The heart of the plant catalog system, providing:
+
+* **Search Functionality** - Real-time text search across plant names
+* **Advanced Filtering** - Multi-select filters for plant characteristics
+* **Responsive Grid** - Adaptive layout for all screen sizes
+* **Plant Cards** - Information-rich display with images and characteristics
+
+[source,javascript]
+----
+// Key features implemented
+- Real-time search across multiple plant fields
+- Multi-characteristic filtering system
+- Responsive grid layout (1-4 columns)
+- Loading states and error handling
+- Plant characteristic chips (water, light, bloom season)
+----
+
+==== Header.vue
+Navigation system featuring:
+
+* **Responsive Navigation** - Collapsible drawer menu
+* **Vue Router Integration** - Proper SPA navigation
+* **Brand Integration** - UC Davis branding elements
+
+==== Breadcrumbs.vue
+Context-aware navigation:
+
+* **Dynamic Path Generation** - Based on current route
+* **Section Awareness** - Understands plant categories
+* **User-Friendly Labels** - Clear, descriptive navigation
+
+== Data Management
+
+=== Google Sheets Integration
+
+The application integrates with Google Sheets to provide dynamic, real-time plant data updates.
+
+==== Configuration
+
+[source,javascript]
+----
+// gridsome.config.js
+{
+  use: 'gridsome-source-google-sheets-v2',
+  options: {
+    apiKey: process.env.GOOGLE_API_KEY,
+    spreadsheets: [{
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      sheets: [{
+        sheetName: 'WebSiteList',
+        collectionName: 'googleSheet'
+      }]
+    }]
+  }
+}
+----
+
+==== Environment Variables
+
+[source,bash]
+----
+# .env file
+GOOGLE_SHEET_ID=your_google_sheet_id
+GOOGLE_API_KEY=your_google_api_key
+----
+
+==== Data Schema
+
+Each plant entry contains:
+
+[cols="1,2,1"]
+|===
+|Field |Description |Example
+
+|Common_Name
+|Plant's common name
+|"Yarrow"
+
+|Scientific_Name
+|Botanical scientific name
+|"Achillea millefolium"
+
+|Full_Name
+|Complete scientific name with cultivar
+|"Achillea millefolium 'Calistoga'"
+
+|Location
+|Garden section
+|"Natives", "Mediterranean", "OPAC"
+
+|Water_Needs
+|Irrigation requirements
+|"Low", "Moderate", "High"
+
+|Exposure
+|Light requirements
+|"Full Sun", "Partial Shade"
+
+|Bloom_Season
+|Flowering period
+|"Spring", "Summer", "Fall"
+
+|Img_URL
+|Plant photograph URL
+|"https://..."
+
+|Description
+|Plant description and care notes
+|Text content
+|===
+
+=== GraphQL Queries
+
+The application uses GraphQL to query plant data:
+
+[source,graphql]
+----
+query {
+  allGoogleSheet (filter: { Location: { in: ["Natives"] }}){
+    edges {
+      node {
+        id
+        Scientific_Name
+        Common_Name
+        Full_Name
+        Cultivar
+        Description
+        Size__height_
+        Size__width_
+        Bloom_Season
+        Water_Needs
+        Exposure
+        Location
+        Img_URL
+        Type
+      }
+    }
+  }
+}
+----
+
+== Build Process
+
+=== Development Workflow
+
+[source,bash]
+----
+# Start development server
+yarn develop
+
+# Development server runs at http://localhost:8080
+# Includes hot-reload and GraphQL explorer
+----
+
+=== Production Build
+
+[source,bash]
+----
+# Standard build
+yarn build
+
+# Build with comprehensive testing
+yarn build:test
+
+# Generated static files in /dist directory
+----
+
+=== Build Scripts
+
+[cols="1,3"]
+|===
+|Command |Description
+
+|`yarn develop`
+|Start development server with hot-reload
+
+|`yarn build`
+|Generate production static files
+
+|`yarn build:test`
+|Comprehensive build with testing pipeline
+
+|`yarn test:links`
+|Validate all internal and external links
+
+|`yarn lint`
+|Code quality and style checking
+|===
+
+== Testing Framework
+
+=== Comprehensive Link Testing
+
+The project includes an advanced testing system that validates:
+
+* **Static Pages** - All defined routes
+* **Dynamic Plant Pages** - Generated from Google Sheets data
+* **Navigation Links** - Menu and breadcrumb functionality
+* **Internal Links** - Cross-references within content
+
+==== Test Execution
+
+[source,bash]
+----
+# Run link validation tests
+yarn test:links
+
+# Test output includes:
+# - Console summary with pass/fail status
+# - Detailed JSON report (link-test-results.json)
+# - Broken link identification and recommendations
+----
+
+==== Test Coverage
+
+[source,javascript]
+----
+// Test categories covered:
+const TEST_CATEGORIES = [
+  'Static Pages',           // /about, /contact, etc.
+  'Navigation Links',       // Header menu items
+  'Dynamic Plant Pages',    // /plant/:id routes
+  'Internal Page Links',    // Cross-references
+  'Build Integrity'        // Production build validation
+];
+----
+
+=== Quality Assurance
+
+* **ESLint Integration** - Code quality enforcement
+* **Vue.js Best Practices** - Component structure validation
+* **Accessibility Compliance** - WCAG guidelines adherence
+* **Mobile Responsiveness** - Multi-device testing
+
+== Garden Categories
+
+=== Native Plants
+**Route**: `/natives`
+
+California native species showcasing regional biodiversity:
+
+* **Focus**: Plants indigenous to the San Francisco Bay Area
+* **Benefits**: Minimal water requirements, wildlife habitat
+* **Characteristics**: Drought-tolerant, locally adapted
+* **Examples**: California poppies, manzanitas, native grasses
+
+=== Mediterranean Plants
+**Route**: `/mediterranean`
+
+Species from Mediterranean climate regions worldwide:
+
+* **Geographic Origins**: California, Mediterranean Basin, Chile, South Africa, Australia
+* **Climate Adaptation**: Dry summers, mild wet winters
+* **Garden Benefits**: Drought tolerance, year-round interest
+* **Design Style**: Informal, naturalistic plantings
+
+=== Grasses
+**Route**: `/grasses`
+
+Ornamental and native grass species:
+
+* **Types**: Bunch grasses, spreading grasses, sedges
+* **Applications**: Ground cover, accent plants, erosion control
+* **Maintenance**: Generally low-maintenance once established
+* **Seasonal Interest**: Texture, movement, seed heads
+
+=== Sensory Garden
+**Route**: `/sensory`
+
+Plants selected for sensory engagement:
+
+* **Tactile Elements**: Varied textures, soft and coarse foliage
+* **Aromatic Plants**: Fragrant leaves and flowers
+* **Visual Interest**: Diverse colors, forms, and seasonal changes
+* **Accessibility**: Designed for universal access
+
+=== Outstanding Plants of Alameda County (OPAC)
+**Route**: `/opac`
+
+Specially selected plants for regional excellence:
+
+* **Selection Criteria**: Proven performance in Alameda County
+* **Evaluation Factors**: Beauty, adaptability, low maintenance
+* **Recognition Program**: UC Master Gardener endorsed
+* **Local Relevance**: Specifically suited to local climate conditions
+
+== User Experience Features
+
+=== Search and Filtering System
+
+==== Text Search
+* **Multi-field Search**: Common name, scientific name, cultivar
+* **Real-time Results**: Instant filtering as you type
+* **Case-insensitive**: Flexible search terms
+* **Partial Matching**: Find plants with incomplete names
+
+==== Advanced Filtering
+* **Water Requirements**: Low, Moderate, High
+* **Light Exposure**: Full Sun, Partial Shade, Full Shade
+* **Bloom Season**: Spring, Summer, Fall, Winter
+* **Plant Type**: Perennial, Annual, Shrub, Tree
+
+==== Visual Enhancements
+* **Characteristic Chips**: Quick visual identification of plant traits
+* **Hover Effects**: Interactive feedback on plant cards
+* **Loading States**: Progress indicators during data fetching
+* **Results Counter**: "Showing X of Y plants" feedback
+
+=== Responsive Design
+
+==== Breakpoint Strategy
+[cols="1,1,2"]
+|===
+|Device Type |Screen Width |Grid Columns
+
+|Mobile
+|< 600px
+|1 column
+
+|Tablet
+|600-960px
+|2 columns
+
+|Desktop
+|960-1264px
+|3 columns
+
+|Large Desktop
+|> 1264px
+|4 columns
+|===
+
+==== Mobile Optimizations
+* **Touch-friendly Interface** - Larger tap targets
+* **Simplified Navigation** - Collapsible drawer menu
+* **Optimized Images** - Responsive image loading
+* **Performance** - Minimal bandwidth usage
+
+=== Navigation Enhancement
+
+==== Breadcrumb Navigation
+* **Context Awareness** - Shows current location in site hierarchy
+* **One-click Navigation** - Easy return to parent sections
+* **Mobile Friendly** - Compact display on small screens
+
+==== Menu System
+* **Categorical Organization** - Plants grouped by garden type
+* **Visual Icons** - Material Design iconography
+* **Accessibility** - Keyboard navigation support
+
+== Deployment and Hosting
+
+=== Static Site Generation
+
+The application generates static HTML files for optimal performance:
+
+* **Pre-rendered Pages** - All routes generated at build time
+* **SEO Optimization** - Server-side rendering for search engines
+* **CDN Compatible** - Static files easily distributed
+* **Zero Server Dependencies** - No backend infrastructure required
+
+=== Recommended Hosting Platforms
+
+[cols="1,2,2"]
+|===
+|Platform |Benefits |Configuration
+
+|Netlify
+|Automatic builds, form handling, CDN
+|`netlify.toml` configuration included
+
+|Vercel
+|Git integration, preview deployments
+|Zero-config deployment
+
+|GitHub Pages
+|Free hosting, GitHub integration
+|Static file serving
+
+|AWS S3 + CloudFront
+|Enterprise scale, custom domains
+|Manual configuration required
+|===
+
+=== Performance Optimization
+
+* **Image Optimization** - Automatic image compression and formats
+* **Code Splitting** - Lazy loading of non-critical components
+* **Caching Strategy** - Aggressive caching of static assets
+* **Minification** - CSS and JavaScript optimization
+
+== Maintenance and Updates
+
+=== Content Management
+
+==== Google Sheets Workflow
+1. **Data Entry** - Add/edit plant information in Google Sheets
+2. **Automatic Sync** - Changes reflect immediately on site rebuild
+3. **Version Control** - Google Sheets maintains edit history
+4. **Collaboration** - Multiple editors can contribute
+
+==== Image Management
+* **Naming Convention** - Sequential numbering (1.jpg, 2.jpg, etc.)
+* **Storage Location** - `/src/assets/img/` directory
+* **Optimization** - Sharp library for automatic processing
+* **Backup Strategy** - Version control and cloud storage
+
+=== Code Maintenance
+
+==== Dependency Updates
+[source,bash]
+----
+# Check for outdated packages
+yarn outdated
+
+# Update dependencies
+yarn upgrade
+
+# Security audit
+yarn audit
+----
+
+==== Testing Schedule
+* **Pre-deployment** - Always run `yarn test:links`
+* **Weekly** - Full build testing with `yarn build:test`
+* **Monthly** - Dependency security audit
+* **Quarterly** - Performance optimization review
+
+=== Monitoring and Analytics
+
+==== Site Performance
+* **Build Success Rate** - Track deployment failures
+* **Page Load Times** - Monitor user experience metrics
+* **Mobile Performance** - Lighthouse audits
+* **Error Tracking** - 404 errors and broken links
+
+==== User Engagement
+* **Search Usage** - Popular plant queries
+* **Category Preferences** - Most visited garden sections
+* **Device Analytics** - Mobile vs desktop usage
+* **Geographic Distribution** - Visitor locations
+
+== Troubleshooting Guide
+
+=== Common Issues
+
+==== Build Failures
+
+**Symptom**: `yarn build` fails with module errors
+
+**Solutions**:
+1. Clear cache and reinstall dependencies:
++
+[source,bash]
+----
+rm -rf .yarn node_modules yarn.lock
+yarn install
+----
+
+2. Check Node.js version compatibility
+3. Verify system dependencies (vips, etc.)
+
+==== Google Sheets Connection Issues
+
+**Symptom**: No plant data displayed, "No plant data available" message
+
+**Diagnosis Steps**:
+1. Verify `.env` file contains correct API credentials
+2. Check Google Sheets API quota limits
+3. Confirm sheet structure matches expected schema
+4. Test API connectivity manually
+
+**Solutions**:
+[source,bash]
+----
+# Test API connection
+curl "https://sheets.googleapis.com/v4/spreadsheets/{SHEET_ID}?key={API_KEY}"
+----
+
+==== Link Testing Failures
+
+**Symptom**: `yarn test:links` reports broken links
+
+**Common Causes**:
+* Development server not running
+* Incorrect route definitions
+* Missing page components
+* GraphQL query errors
+
+**Resolution Process**:
+1. Ensure dev server is running at http://localhost:8080
+2. Check console for GraphQL errors
+3. Verify all page components exist
+4. Review link-test-results.json for specific failures
+
+=== Performance Issues
+
+==== Slow Build Times
+
+**Optimization Strategies**:
+* Enable incremental builds where possible
+* Optimize image processing pipeline
+* Review plugin configurations
+* Consider build environment resources
+
+==== Large Bundle Sizes
+
+**Reduction Techniques**:
+* Implement code splitting
+* Remove unused dependencies
+* Optimize image formats and sizes
+* Enable compression in build pipeline
+
+== Contributing Guidelines
+
+=== Development Setup
+
+1. **Fork Repository** - Create personal fork on GitHub
+2. **Clone Locally** - `git clone [fork-url]`
+3. **Install Dependencies** - `yarn install`
+4. **Create Branch** - `git checkout -b feature/description`
+5. **Development** - Make changes and test locally
+6. **Test Suite** - Run `yarn test:links` before committing
+7. **Commit** - Use conventional commit messages
+8. **Pull Request** - Submit for review
+
+=== Code Standards
+
+==== Vue.js Conventions
+* **Single File Components** - Use `.vue` file format
+* **Composition API** - Prefer modern Vue patterns where applicable
+* **Props Validation** - Always define prop types
+* **Event Naming** - Use kebab-case for custom events
+
+==== Styling Guidelines
+* **Vuetify Classes** - Prefer framework classes over custom CSS
+* **Responsive Design** - Mobile-first approach
+* **Accessibility** - Include ARIA labels and semantic HTML
+* **Color Contrast** - Maintain WCAG AA compliance
+
+==== Documentation Requirements
+* **Component Documentation** - Document props, events, and usage
+* **Code Comments** - Explain complex logic and business rules
+* **README Updates** - Keep build instructions current
+* **Changelog** - Document significant changes
+
+=== Testing Requirements
+
+All contributions must include:
+
+* **Link Testing** - Pass `yarn test:links`
+* **Build Validation** - Successful `yarn build`
+* **Cross-browser Testing** - Verify major browser compatibility
+* **Mobile Testing** - Ensure responsive functionality
+
+== Future Enhancements
+
+=== Planned Features
+
+==== Advanced Search
+* **Botanical Characteristics** - Filter by flower color, leaf shape, plant height
+* **Growing Conditions** - Soil type, pH requirements, hardiness zones
+* **Maintenance Level** - Categorize by care difficulty
+* **Bloom Calendar** - Visual calendar showing bloom times
+
+==== User Interaction
+* **Plant Collections** - Allow users to save favorite plants
+* **Garden Planning** - Virtual garden design tools
+* **Plant Care Reminders** - Seasonal care notifications
+* **User Reviews** - Community feedback on plants
+
+==== Content Expansion
+* **Video Content** - Plant care and gardening technique videos
+* **Seasonal Guides** - Monthly gardening task lists
+* **Plant Combinations** - Suggested companion plantings
+* **Local Events** - Garden tours and educational events
+
+==== Technical Improvements
+* **Progressive Web App** - Offline functionality
+* **Performance Optimization** - Faster loading times
+* **Advanced Analytics** - User behavior insights
+* **API Development** - RESTful API for third-party integrations
+
+=== Long-term Vision
+
+The ACMG Quarry Lakes Demonstration Garden website aims to become the premier digital resource for sustainable Bay Area gardening, fostering environmental stewardship through accessible plant education and community engagement.
+
+== Appendices
+
+=== Appendix A: Plant Data Schema
+
+[source,javascript]
+----
+{
+  "id": "string",                    // Unique identifier
+  "Common_Name": "string",           // Display name
+  "Scientific_Name": "string",       // Botanical name
+  "Full_Name": "string",            // Complete scientific name
+  "Cultivar": "string",             // Cultivar information
+  "Description": "string",          // Plant description
+  "Size__height_": "string",        // Mature height
+  "Size__width_": "string",         // Mature width
+  "Bloom_Season": "string",         // Flowering period
+  "Water_Needs": "string",          // Irrigation requirements
+  "Exposure": "string",             // Light requirements
+  "Location": "string",             // Garden category
+  "Img_URL": "string",              // Image URL
+  "Type": "string",                 // Plant type
+  "Pruning_Needs": "string",        // Maintenance requirements
+  "Attribution": "string",          // Photo credits
+  "Links": "string"                 // External resources
+}
+----
+
+=== Appendix B: Environment Configuration
+
+[source,bash]
+----
+# Required Environment Variables
+GOOGLE_API_KEY=your_google_api_key_here
+GOOGLE_SHEET_ID=your_google_sheet_id_here
+
+# Optional Configuration
+NODE_OPTIONS=--openssl-legacy-provider
+BUILD_OUTPUT_DIR=dist
+----
+
+=== Appendix C: License Information
+
+This project documentation is provided under the same license as the ACMG_QL project. Please refer to the LICENSE file in the project repository for complete licensing terms.
+
+---
+
+*Generated: {localdate}*
+
+*Version: 2.0*
+
+*UC Davis Arboretum and Community Gardens*
