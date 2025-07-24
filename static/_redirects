@@ -1,0 +1,2 @@
+# Cloudflare Pages redirects
+/ACMG_QL/* /ACMG_QL/:splat 200

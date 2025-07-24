@@ -5,6 +5,7 @@
     "develop": "NODE_OPTIONS=--openssl-legacy-provider gridsome develop",
     "explore": "gridsome explore",
     "build": "gridsome build",
+    "build:cf": "NODE_OPTIONS=--openssl-legacy-provider gridsome build",
     "build:test": "node build-and-test.js",
     "lint": "vue-cli-service lint",
     "test:links": "node test-links.js",
