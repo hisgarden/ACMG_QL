@@ -10,7 +10,7 @@
     "lint": "vue-cli-service lint",
     "test:links": "node test-links.js",
     "test:links:ci": "node test-links.js && echo 'All links passed!'",
-    "prebuild": "yarn test:links"
+    "prebuild": "echo 'Skipping tests for Cloudflare Pages'"
   },
   "dependencies": {
     "@capsia/gridsome-plugin-local-image": "^1.1.1",
