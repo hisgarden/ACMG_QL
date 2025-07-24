@@ -1,141 +1,311 @@
-**Table of Contents:**
+# 🌱 ACMG Quarry Lakes Demonstration Garden
 
-<hr />
+[![Built with Vue.js](https://img.shields.io/badge/Vue.js-2.6.4-4FC08D?style=flat-square&logo=vue.js)](https://vuejs.org/)
+[![Powered by Gridsome](https://img.shields.io/badge/Gridsome-0.7.0-00A672?style=flat-square)](https://gridsome.org/)
+[![Yarn 4](https://img.shields.io/badge/Yarn-4.9.1-2C8EBB?style=flat-square&logo=yarn)](https://yarnpkg.com/)
+[![Material Design](https://img.shields.io/badge/Material_Design-Vuetify-1976D2?style=flat-square&logo=material-design)](https://vuetifyjs.com/)
 
-# Build Instructions for macOS (2025)
+> A comprehensive digital plant catalog showcasing the botanical diversity of UC Davis's Quarry Lakes Demonstration Garden in Fremont, California.
 
-## Prerequisites
-- macOS (tested on Sonoma and later)
-- Node.js 18.x or later (recommended)
-- Yarn 4.x (this project uses Yarn 4.9.1)
-- Xcode Command Line Tools
-- Homebrew
+**🌐 Live Site**: [ACMG Quarry Lakes Garden](https://github.com/hisgarden/ACMG_QL)
 
-## 1. Install Yarn 4.x (if not already installed)
-```
+---
+
+## ✨ What Makes This Special
+
+The ACMG Quarry Lakes Demonstration Garden website is more than just a plant catalog—it's a gateway to sustainable Bay Area gardening. Built with modern web technologies, this platform showcases 200+ native and adapted plants thriving in our unique Mediterranean climate.
+
+### 🎯 Our Mission
+*To provide an accessible, searchable digital catalog of native and adapted plants thriving in the San Francisco Bay Area climate, promoting sustainable gardening practices and environmental stewardship.*
+
+---
+
+## 🚀 Features That Bloom
+
+| Feature | Description |
+|---------|-------------|
+| 🔍 **Smart Search** | Real-time search across plant names, characteristics, and care requirements |
+| 🏷️ **Garden Categories** | Native, Mediterranean, Grasses, Sensory, and OPAC collections |
+| 📱 **Mobile-First** | Responsive design that works beautifully on any device |
+| 🔄 **Live Data** | Dynamic integration with Google Sheets for instant updates |
+| ⚡ **Lightning Fast** | Static site generation for optimal performance |
+| 🧪 **Thoroughly Tested** | Comprehensive link validation and build verification |
+
+---
+
+## 🌿 Garden Collections
+
+### 🏜️ [Native Plants](/natives)
+California natives showcasing regional biodiversity with minimal water needs and maximum wildlife habitat value.
+
+### 🌊 [Mediterranean Plants](/mediterranean)
+Species from Mediterranean climates worldwide, perfectly adapted to our dry summers and mild winters.
+
+### 🌾 [Grasses](/grasses)
+Ornamental and native grasses providing texture, movement, and year-round interest.
+
+### 👃 [Sensory Garden](/sensory)
+Plants selected for their tactile, aromatic, and visual qualities—designed for universal accessibility.
+
+### ⭐ [Outstanding Plants of Alameda County (OPAC)](/opac)
+UC Master Gardener endorsed plants with proven excellence in our local climate.
+
+---
+
+## 🛠️ Quick Start
+
+### Prerequisites
+- **Node.js** 18.x or later
+- **Yarn** 4.x (this project uses Yarn 4.9.1)
+- **macOS users**: Xcode Command Line Tools and `vips` library
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/hisgarden/ACMG_QL.git
+cd ACMG_QL
+
+# Install Yarn 4.x globally (if needed)
 npm install -g yarn@4
-```
 
-## 2. Install system dependencies
-```
+# Install system dependencies (macOS)
 xcode-select --install
 brew install vips
-```
 
-## 3. Install project dependencies
-```
+# Install project dependencies
 yarn install
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your Google Sheets API credentials
 ```
 
-## 4. Build the project
+### Development
+
+```bash
+# Start development server with hot-reload
+yarn develop
+
+# Visit http://localhost:8080
+# GraphQL explorer available at http://localhost:8080/___explore
 ```
+
+### Production Build
+
+```bash
+# Build for production
 yarn build
+
+# Build with comprehensive testing
+yarn build:test
+
+# Validate all links
+yarn test:links
 ```
 
-The build should complete successfully and generate the static site in the `dist/` directory.
+---
 
-If you encounter errors related to native modules (like `sharp`), ensure you have the system dependencies above installed, and try a clean install:
-```
-rm -rf .yarn node_modules yarn.lock .pnp.cjs
-yarn install
-```
+## 🏗️ Technology Stack
 
-## Google Sheets Integration (Optional)
+Built with modern, proven technologies for reliability and performance:
 
-This project is configured to pull plant data from Google Sheets. To enable this feature:
+| Component | Technology | Version |
+|-----------|------------|---------|
+| **Frontend Framework** | Vue.js with Gridsome | Vue 2.6.4, Gridsome 0.7.0 |
+| **UI Framework** | Vuetify (Material Design) | 2.4.9 |
+| **Data Source** | Google Sheets API | v4 |
+| **Build System** | Yarn | 4.9.1 |
+| **Deployment** | Static Site Generation | JAMstack |
 
-1. Create a Google Cloud Project and enable the Google Sheets API
-2. Create an API key with access to Google Sheets
-3. Create or use an existing Google Sheet with plant data
-4. Update the `.env` file with your credentials:
-   ```
-   GOOGLE_API_KEY=your_actual_google_api_key
-   GOOGLE_SHEET_ID=your_actual_google_sheet_id
-   ```
+---
 
-The build will work without Google Sheets data, but plant pages will show a placeholder message.
-
-# About the starter
-
-
-
-Gridsome starter based on the minimal styling.  Content data is imported from Google Sheet using GraphQL. Vuetify CSS framework is used for styling
-
-## Key features
-
-- Built with Vuetify CSS
-- Responsive
-- GraphQL
-- Author pages
-- Tags
-- Categories
-- Dynamic custom pages
-
-
-## Setup step-by-step guide
-
-1.  Pick a general purpose code editor -- VS Code from Microsoft
-1.  Set up a workspace in your home path
-1.  Learn some Markdown language to be used for content data page
-1.  Use Gridsome as front end static site generator
-1.  Use a Gridsome starter kit to set up your project
-1.  Learn how Git work, and how it keep track of your change to the data
-
-### Pick a general purpose code editor
-
-I recommend download VS Code from Microsoft
-
-https://code.visualstudio.com/
-
-### Set up a workspace in your home path
-
-Create workspace folder under your home path
+## 📂 Project Structure
 
 ```
-mkdir workspace
-
-cd workspace
+ACMG_QL/
+├── 📁 src/
+│   ├── 🧩 components/         # Vue components
+│   │   ├── AllPlants.vue     # Main plant catalog
+│   │   ├── Header.vue        # Navigation
+│   │   └── ...               # Other components
+│   ├── 📄 pages/             # Route pages
+│   │   ├── Index.vue         # Homepage
+│   │   ├── Natives.vue       # Native plants
+│   │   └── ...               # Category pages
+│   ├── 🎨 assets/img/        # Plant photographs (200+)
+│   └── ⚙️ main.js            # App entry point
+├── 📊 static/                # Static assets
+├── 🏗️ dist/                  # Build output
+├── ⚙️ gridsome.config.js     # Configuration
+└── 📋 package.json           # Dependencies
 ```
 
-## Learn some Markdown language to be used for content data page
+---
 
-You may be familiar with Markdown if you are familar with [Python Jupyter](https://pythonawesome.com/jupyter-notebooks-as-markdown-documents/) notebooks
+## 🔧 Available Scripts
 
-Learn Markdown in 30 minutes! Watch this https://www.youtube.com/watch?v=bTVIMt3XllM
+| Command | Description |
+|---------|-------------|
+| `yarn develop` | Start development server with hot-reload |
+| `yarn build` | Generate production static files |
+| `yarn build:test` | Comprehensive build with testing pipeline |
+| `yarn test:links` | Validate all internal and external links |
+| `yarn lint` | Code quality and style checking |
 
-## Use Gridsome as front end static site generator
+---
 
-Check out Gridsome awesome site feature: https://gridsome.org
+## 🌐 Data Integration
 
-### Install Gridsome
+### Google Sheets Configuration
 
-Use [YARN](https://yarnpkg.com) to install
+The application seamlessly integrates with Google Sheets for dynamic plant data:
 
+```javascript
+// gridsome.config.js
+{
+  use: 'gridsome-source-google-sheets-v2',
+  options: {
+    apiKey: process.env.GOOGLE_API_KEY,
+    spreadsheets: [{
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      sheets: [{
+        sheetName: 'WebSiteList',
+        collectionName: 'googleSheet'
+      }]
+    }]
+  }
+}
 ```
-yarn global add @gridsome/cli
+
+### Environment Setup
+
+```bash
+# .env file
+GOOGLE_SHEET_ID=your_google_sheet_id
+GOOGLE_API_KEY=your_google_api_key
 ```
 
-### Build your site using the following command
+---
 
+## 🎨 Design Philosophy
 
+### Mobile-First Responsive Design
+
+| Device | Screen Width | Grid Columns |
+|--------|-------------|--------------|
+| 📱 Mobile | < 600px | 1 column |
+| 📱 Tablet | 600-960px | 2 columns |
+| 💻 Desktop | 960-1264px | 3 columns |
+| 🖥️ Large Desktop | > 1264px | 4 columns |
+
+### User Experience Features
+
+- **🔍 Real-time Search**: Instant filtering as you type
+- **🏷️ Smart Filtering**: Filter by water needs, light exposure, bloom season
+- **💡 Visual Feedback**: Characteristic chips, hover effects, loading states
+- **♿ Accessibility**: WCAG AA compliant with keyboard navigation
+
+---
+
+## 🧪 Quality Assurance
+
+### Comprehensive Testing Suite
+
+Our testing framework validates:
+
+- ✅ **Static Pages** - All defined routes
+- ✅ **Dynamic Plant Pages** - Generated from Google Sheets data
+- ✅ **Navigation Links** - Menu and breadcrumb functionality
+- ✅ **Internal Links** - Cross-references within content
+- ✅ **Build Integrity** - Production build validation
+
+```bash
+# Run the full test suite
+yarn test:links
+
+# Output includes:
+# - Console summary with pass/fail status
+# - Detailed JSON report (link-test-results.json)
+# - Broken link identification and recommendations
 ```
-cd workspace
-gridsome create my-site https://github.com/hisgarden/gridsome-googlesheet
 
-cd my-site
+---
 
-gridsome develop
-```
-Open your browser and type in:
+## 🚀 Deployment
 
-[http://localhost:8080/](http://localhost:8080)
+### Recommended Hosting Platforms
 
+| Platform | Benefits | Setup |
+|----------|----------|-------|
+| **Netlify** | Automatic builds, form handling, CDN | `netlify.toml` included |
+| **Vercel** | Git integration, preview deployments | Zero-config deployment |
+| **GitHub Pages** | Free hosting, GitHub integration | Static file serving |
+| **AWS S3 + CloudFront** | Enterprise scale, custom domains | Manual configuration |
 
-## Credits
+### Performance Optimizations
 
-This starter is based on:
+- 🖼️ **Image Optimization** - Automatic compression and format conversion
+- ⚡ **Code Splitting** - Lazy loading of non-critical components
+- 💾 **Aggressive Caching** - Optimized static asset delivery
+- 🗜️ **Minification** - CSS and JavaScript optimization
 
-[Gridsome Headless CMS Tutorial With Google Sheets](https://www.youtube.com/watch?v=-i6C9GE0oTA)
+---
 
+## 🔮 Future Vision
 
-Happy coding 🎉🙌
+### Planned Enhancements
+
+- 🎨 **Advanced Search** - Filter by botanical characteristics, growing conditions
+- 👤 **User Collections** - Save favorite plants and create custom lists
+- 📱 **PWA Features** - Offline functionality and mobile app experience
+- 🎥 **Rich Media** - Plant care videos and seasonal guides
+- 🤝 **Community Features** - User reviews and plant care sharing
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how to get started:
+
+1. **Fork** the repository
+2. **Clone** your fork locally
+3. **Install** dependencies with `yarn install`
+4. **Create** a feature branch
+5. **Make** your changes and test thoroughly
+6. **Run** `yarn test:links` before committing
+7. **Submit** a pull request
+
+### Code Standards
+
+- 📝 **Vue.js Conventions** - Single File Components, proper prop validation
+- 🎨 **Styling** - Vuetify classes preferred, mobile-first responsive design
+- ♿ **Accessibility** - WCAG AA compliance, semantic HTML
+- 📚 **Documentation** - Comment complex logic, update README
+
+---
+
+## 📄 License
+
+This project is licensed under the terms specified in the [LICENSE](LICENSE) file.
+
+---
+
+## 🙏 Acknowledgments
+
+- **UC Davis Arboretum and Community Gardens** - Project sponsor and plant expertise
+- **Quarry Lakes Regional Recreation Area** - Demonstration garden location
+- **UC Master Gardeners of Alameda County** - Plant selection and validation
+- **Open Source Community** - Vue.js, Gridsome, and all supporting technologies
+
+---
+
+<div align="center">
+
+**🌱 Cultivating knowledge, one plant at a time 🌱**
+
+*Built with ❤️ for sustainable Bay Area gardening*
+
+[Report Issues](https://github.com/hisgarden/ACMG_QL/issues) • [Request Features](https://github.com/hisgarden/ACMG_QL/discussions) • [View Documentation](ACMG_QL_Documentation.adoc)
+
+</div>
