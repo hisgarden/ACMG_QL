@@ -10,40 +10,8 @@ module.exports = {
   siteUrl: 'https://hisgarden.dev/ACMG_QL',
   pathPrefix: '/ACMG_QL',
   plugins: [
-    // Google Sheets plugin - only load if environment variables are set
-    ...(process.env.GOOGLE_API_KEY && process.env.GOOGLE_API_KEY !== 'your_google_api_key_here' && process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_SHEET_ID !== 'your_google_sheet_id_here' ? [{
-      use: 'gridsome-source-google-sheets-v2',
-      options: {
-        apiKey: process.env.GOOGLE_API_KEY,
-        spreadsheets: [
-          {
-            spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            sheets: [
-              {
-                sheetName: 'WebSiteList', // Example: "Sheet1" "QL_Plants"
-                collectionName: 'googleSheet', // Example: "Projects" (Must be unique)
-                nodeProcessor: (node) => {
-                  // Use the existing ID from the sheet as the primary identifier
-                  // This ensures consistent, predictable IDs that work with routing
-                  const originalId = node.ID || '';
-                  
-                  // Use simple numeric ID for routing consistency
-                  if (originalId) {
-                    node.id = originalId.toString();
-                  }
-                  
-                  return node;
-                },
-              },
-              //{
-              //  sheetName: 'Natives', // Example: "Sheet2"
-              //  collectionName: "googleSheet", // Example: "Users" (Must be Unique)
-              //},
-            ],
-          },
-        ],
-      },
-    }] : []),
+    // Google Sheets plugin - temporarily disabled for initial deployment
+    // Will be enabled once proper credentials are configured
     {
       use: '@gridsome/source-filesystem',
       options: {
@@ -56,47 +24,25 @@ module.exports = {
         },
       },
     },
-    // Mock data source for when Google Sheets is not available
-    ...(process.env.GOOGLE_API_KEY === 'your_google_api_key_here' || process.env.GOOGLE_SHEET_ID === 'your_google_sheet_id_here' ? [{
+    // Mock data source - using while Google Sheets is disabled
+    {
       use: '@gridsome/source-filesystem',
       options: {
         path: 'mock-data/**/*.md',
         typeName: 'googleSheet',
         resolveAbsolutePaths: true,
       },
-    }] : []),
-    // Remote image plugins - only load if Google Sheets plugin is loaded
-    ...(process.env.GOOGLE_API_KEY && process.env.GOOGLE_API_KEY !== 'your_google_api_key_here' && process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_SHEET_ID !== 'your_google_sheet_id_here' ? [
-      {
-        use: '@noxify/gridsome-plugin-remote-image',
-        options: {
-          'typeName' : 'googleSheet',
-          'sourceField': 'remoteImage',
-          'targetField': 'imageDownloaded',
-          'targetPath': './src/assets/remoteImages'
-        }
-      },
-      {
-        use: '@noxify/gridsome-plugin-remote-image',
-        options: {
-          'typeName' : 'googleSheet',
-          'sourceField': 'remoteImages',
-          'targetField': 'imagesDownloaded',
-          'targetPath': './src/assets/remoteImages'
-        }
-      }
-    ] : [])
+    },
+    // Remote image plugins - disabled while using mock data
   ],
   templates: {
-    // Only define googleSheet template if the plugin is loaded
-    ...(process.env.GOOGLE_API_KEY && process.env.GOOGLE_API_KEY !== 'your_google_api_key_here' && process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_SHEET_ID !== 'your_google_sheet_id_here' ? {
-      googleSheet: [
-        {
-          path: '/plant/:id',
-          component: './src/templates/googleSheet.vue',
-        },
-      ],
-    } : {}),
+    // googleSheet template - always available for mock data
+    googleSheet: [
+      {
+        path: '/plant/:id',
+        component: './src/templates/googleSheet.vue',
+      },
+    ],
   },
   transformers: {
     remark: {
