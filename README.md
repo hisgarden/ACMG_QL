@@ -7,7 +7,7 @@
 
 > A comprehensive digital plant catalog showcasing the botanical diversity of UC Davis's Quarry Lakes Demonstration Garden in Fremont, California.
 
-**🌐 Live Site**: [https://hisgarden.github.io/ACMG_QL](https://hisgarden.github.io/ACMG_QL)
+**🌐 Live Site**: [https://hisgarden.dev/ACMG_QL](https://hisgarden.dev/ACMG_QL)
 
 ---
 
